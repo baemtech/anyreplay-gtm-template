@@ -1,0 +1,9 @@
+homepage: "https://anyreplay.com"
+documentation: "https://anyreplay.com/docs/install/gtm-template"
+versions:
+  # Newest first. `sha` is the commit in the public template repository
+  # (github.com/baemtech/anyreplay-gtm-template) that holds this version of
+  # template.tpl — not a commit in the monorepo. Replace the placeholder with
+  # that commit's full 40-character sha before submitting.
+  - sha: 0000000000000000000000000000000000000000
+    changeNotes: First release.
