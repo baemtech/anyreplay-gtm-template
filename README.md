@@ -7,7 +7,7 @@ JavaScript so a site owner fills in fields instead of pasting code:
 | Field | Becomes |
 | --- | --- |
 | Project key | `projectKey` (validated: `ar_pk_live_` / `ar_pk_test_` + 24 hex) and `?k=` on the loader URL |
-| Mask everything typed into form fields | `maskAllInputs: true` |
+| Mask everything typed into form fields (ticked by default) | nothing while ticked — the recorder masks fields by default; `maskAllInputs: false` when unticked |
 | Also mask rich-text editors | `maskAllTyping: true` |
 | Record only after the visitor grants consent | `requireConsent: true`, then `anyreplay('consent', true/false)` from Consent Mode (`isConsentGranted` + `addConsentListener`) |
 | Sample rate | `sampleRate` (0–1) |

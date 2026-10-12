@@ -57,8 +57,8 @@ ___TEMPLATE_PARAMETERS___
     "name": "maskAllInputs",
     "checkboxText": "Mask everything typed into form fields",
     "simpleValueType": true,
-    "defaultValue": false,
-    "help": "Recommended for a site with a checkout, sign-in or account form. Passwords, one-time codes and payment card fields are masked whatever you choose here."
+    "defaultValue": true,
+    "help": "On by default. Untick it to see what visitors type in your recordings. Passwords, one-time codes and payment card fields are masked whatever you choose here."
   },
   {
     "type": "CHECKBOX",
@@ -225,8 +225,10 @@ const buildOptions = () => {
     ingestUrl: isBlank(data.ingestUrl) ? DEFAULT_INGEST_URL : data.ingestUrl,
   };
 
-  // Only a real true turns masking on, the same rule the recorder applies.
-  if (data.maskAllInputs === true) options.maskAllInputs = true;
+  // Form fields are masked unless the box is unticked: only a real false
+  // records them, and only a real true masks editors, the same rule the
+  // recorder applies. Leaving a default out keeps the recorder's own.
+  if (data.maskAllInputs === false) options.maskAllInputs = false;
   if (data.maskAllTyping === true) options.maskAllTyping = true;
   if (data.waitForConsent === true) options.requireConsent = true;
   if (data.debug === true) options.debug = true;
@@ -581,7 +583,7 @@ scenarios:
     runCode({
       projectKey: KEY,
       ingestUrl: 'https://replay.example.com',
-      maskAllInputs: true,
+      maskAllInputs: false,
       maskAllTyping: true,
       sampleRate: '0.25',
       sessionCap: '5000',
@@ -591,11 +593,19 @@ scenarios:
     assertApi('callInWindow').wasCalledWith('anyreplay', 'init', {
       projectKey: KEY,
       ingestUrl: 'https://replay.example.com',
-      maskAllInputs: true,
+      maskAllInputs: false,
       maskAllTyping: true,
       debug: true,
       sampleRate: 0.25,
       maxSessionsPerMonth: 5000,
+    });
+- name: Leaves field masking to the recorder while the box is ticked
+  code: |-
+    runCode({projectKey: KEY, ingestUrl: 'https://in.anyreplay.com', maskAllInputs: true});
+
+    assertApi('callInWindow').wasCalledWith('anyreplay', 'init', {
+      projectKey: KEY,
+      ingestUrl: 'https://in.anyreplay.com',
     });
 - name: Ignores a sample rate and a cap out of range
   code: |-
