@@ -5,5 +5,7 @@ versions:
   # (github.com/baemtech/anyreplay-gtm-template) that holds this version of
   # template.tpl — not a commit in the monorepo. Replace the placeholder with
   # that commit's full 40-character sha before submitting.
+  - sha: a8fe5179c2d32bdf1e2c640c9d57c3f3bab8d784
+    changeNotes: Form fields are masked by default; untick the box to record what visitors type.
   - sha: bb23187a55c0a87ff32945be611affc9fd5d290b
     changeNotes: First release.
